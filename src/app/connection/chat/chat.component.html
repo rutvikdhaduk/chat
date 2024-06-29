@@ -1,0 +1,80 @@
+<div class="user-profile">
+    <button mat-mini-fab color="primary" class="back-btn" (click)="_Navigation.Back()">
+        <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+    <img src="/assets/user.jpg" alt="" class="profile-img">
+    <div class="user-info-section">
+        <p class="user-name">Dhruv Bhai Ambani</p>
+        <p class="last-seen">Last Seen At 2:40 PM</p>
+    </div>
+
+    <button mat-mini-fab color="primary" class="search">
+        <mat-icon>search</mat-icon>
+    </button>
+    <button mat-mini-fab color="primary" class="menu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+</div>
+
+
+<section class="chat-section">
+    <div class="chat-group">
+        <ng-container *ngFor="let item of [1,2,3,4,5]">
+            <div class="chat-box">
+                <div class="chat-text">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, harum?</p>
+                    <div class="chat-info">
+                        <i class="bi bi-check2-all send-icon"></i>
+                        <p class="time">10:45 PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-box send-chat">
+                <div class="chat-text">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, harum?</p>
+                    <div class="chat-info">
+                        <i class="bi bi-check2-all send-icon"></i>
+                        <p class="time">10:45 PM</p>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-box send-chat">
+                <div class="chat-text">
+                    <p>hi</p>
+                    <div class="chat-info">
+                        <i class="bi bi-check2-all send-icon"></i>
+                        <p class="time">10:45 PM</p>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <!-- <div class="chat-box">
+            <img src="/assets/user.jpg" alt="" class="img">
+            <div class="chat-text">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, harum?</p>
+                <div class="chat-info">
+                    <i class="bi bi-check2-all send-icon"></i>
+                    <p class="time">10:45 PM</p>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <div class="chat-input-section">
+        <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu" class="icon-btn">
+            <mat-icon>insert_emoticon</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>Item 1</button>
+            <button mat-menu-item>Item 2</button>
+        </mat-menu>
+
+        <button mat-mini-fab color="primary" class="icon-btn">
+            <mat-icon>attach_file</mat-icon>
+        </button>
+
+        <input type="text" class="chat-input" placeholder="Enter Message">
+        <button class="send-btn"><i class="material-icons">send</i></button>
+    </div>
+</section>

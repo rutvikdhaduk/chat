@@ -1,0 +1,145 @@
+<section class="authrization-body">
+  <div class="navbar">
+    <img src="/assets/images/clouddevhub-logo.svg" alt="" class="logo">
+  </div>
+
+  <section class="form-section">
+    <!--========================================================
+                              Login Form
+      =========================================================-->
+    <form class="form" *ngIf="!isSignupForm">
+      <img src="/assets/images/login-img.png" alt="" class="img">
+
+      <div class="form-body">
+        <!-- ========= Form Fields ========= -->
+        <ng-container>
+          <p class="text">Log in</p>
+
+          <!-- === Login with email and pass -->
+          <ng-container *ngIf="!isOTPVarification">
+            <mat-form-field appearance="outline" class="material-form-field">
+              <mat-label>Email</mat-label>
+              <mat-icon matPrefix>mail_outline</mat-icon>
+              <input matInput placeholder="Enter Email" [(ngModel)]="LoginUser.email" name="email">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="material-form-field">
+              <mat-label>Password</mat-label>
+              <mat-icon matPrefix>lock_outline</mat-icon>
+              <input matInput [type]="isShowPass ? 'text' : 'password'" placeholder="Enter Password"
+                [(ngModel)]="LoginUser.password" name="password">
+              <button mat-mini-fab matSuffix color="primary" class="toggle-pass" (click)="isShowPass = !isShowPass">
+                <mat-icon *ngIf="!isShowPass">visibility</mat-icon>
+                <mat-icon *ngIf="isShowPass">visibility_off</mat-icon>
+              </button>
+            </mat-form-field>
+            <button mat-raised-button color="primary" class="form-btn" (click)="loginUser()">
+              <i class="material-icons">login</i> Login</button>
+          </ng-container>
+
+          <!-- === Login with email and OTP -->
+          <ng-container *ngIf="isOTPVarification">
+            <ng-container *ngIf="!isOTPSend">
+              <mat-form-field appearance="outline" class="material-form-field">
+                <mat-label>Email</mat-label>
+                <mat-icon matPrefix>mail_outline</mat-icon>
+                <input matInput placeholder="Enter Email" [(ngModel)]="LoginUser.email" name="email">
+              </mat-form-field>
+              <button mat-raised-button color="primary" class="form-btn" (click)="sendOTP()">
+                <i class="material-icons">send</i> Send OTP</button>
+            </ng-container>
+
+            <ng-container *ngIf="isOTPSend">
+              <p class="otp-info">We have send verification code to your email address</p>
+              <p-inputOtp [(ngModel)]="LoginUser.email" class="otp-field" />
+              <p class="otp-info">{{ minutes }}:{{ seconds | number: '2.0' }}</p>
+              <button mat-raised-button color="primary" class="form-btn" (click)="sendOTP()">Verify</button>
+
+              <ng-container *ngIf="minutes == 0 && seconds == 0">
+                <p class="info-text">Dodn’t recive code ? <span class="toggle-link" (click)="sendOTP()">Resend</span>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
+          <ng-container *ngIf="minutes == 0 && seconds == 0">
+            <p class="info-text"><span class="toggle-link" (click)="toggleVarificationMode()">Try Another way ?</span></p>
+            <p class="info-text">Don’t have an account ? <span class="toggle-link" (click)="toggleForm()">Register</span>
+          </ng-container>
+        </ng-container>
+
+        <!-- ========= Done Icon ========= -->
+        <div class="authorize-animation" *ngIf="IsUserAuthorized">
+          <svg class="ft-green-tick" xmlns="http://www.w3.org/2000/svg" height="100" width="100" viewBox="0 0 48 48"
+            aria-hidden="true">
+            <circle class="circle" fill="#5bb543" cx="24" cy="24" r="22" />
+            <path class="tick" fill="none" stroke="#FFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"
+              stroke-miterlimit="10" d="M14 27l5.917 4.917L34 17" />
+          </svg>
+        </div>
+      </div>
+    </form>
+
+    <!--========================================================
+                              Signup Form
+      =========================================================-->
+    <form class="form" *ngIf="isSignupForm">
+      <img src="/assets/images/signup-img.png" alt="" class="img">
+
+      <div class="form-body">
+        <!-- ========= Form Fields ========= -->
+        <ng-container>
+          <p class="text">Sign up</p>
+          <mat-form-field appearance="outline" class="material-form-field">
+            <mat-label>Full Name</mat-label>
+            <mat-icon matPrefix>person_outline</mat-icon>
+            <input matInput placeholder="Enter Full Name" [(ngModel)]="registerUser.name" name="fullname">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="material-form-field">
+            <mat-label>Mobile No</mat-label>
+            <mat-icon matPrefix>call</mat-icon>
+            <input matInput placeholder="Enter Mobile No" [(ngModel)]="registerUser.mobileNumber" name="nobileno">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="material-form-field">
+            <mat-label>Email</mat-label>
+            <mat-icon matPrefix>mail_outline</mat-icon>
+            <input matInput placeholder="Enter Email" [(ngModel)]="registerUser.email" name="email">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="material-form-field">
+            <mat-label>Password</mat-label>
+            <mat-icon matPrefix>lock_outline</mat-icon>
+            <input matInput [type]="isShowPass ? 'text' : 'password'" placeholder="Enter Password"
+              [(ngModel)]="registerUser.password" name="pass">
+            <button mat-mini-fab matSuffix color="primary" class="toggle-pass" (click)="isShowPass = !isShowPass">
+              <mat-icon *ngIf="!isShowPass">visibility</mat-icon>
+              <mat-icon *ngIf="isShowPass">visibility_off</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="material-form-field">
+            <mat-label>Confirm Password</mat-label>
+            <mat-icon matPrefix>lock_outline</mat-icon>
+            <input matInput [type]="isShowCnfPass ? 'text' : 'password'" placeholder="Please Confirm Your Password"
+              [(ngModel)]="cpassword" name="cpass">
+            <button mat-mini-fab matSuffix color="primary" class="toggle-pass" (click)="isShowCnfPass = !isShowCnfPass">
+              <mat-icon *ngIf="!isShowCnfPass">visibility</mat-icon>
+              <mat-icon *ngIf="isShowCnfPass">visibility_off</mat-icon>
+            </button>
+          </mat-form-field>
+          <button mat-raised-button color="primary" class="form-btn" (click)="addNewUser()">
+            <i class="material-icons">login</i> Sign Up</button>
+          <p class="info-text">Already have an account ? <span class="toggle-link" (click)="toggleForm()">Login</span>
+          </p>
+        </ng-container>
+
+        <!-- ========= Done Icon ========= -->
+        <div class="authorize-animation" *ngIf="IsUserAuthorized">
+          <svg class="ft-green-tick" xmlns="http://www.w3.org/2000/svg" height="100" width="100" viewBox="0 0 48 48"
+            aria-hidden="true">
+            <circle class="circle" fill="#5bb543" cx="24" cy="24" r="22" />
+            <path class="tick" fill="none" stroke="#FFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"
+              stroke-miterlimit="10" d="M14 27l5.917 4.917L34 17" />
+          </svg>
+        </div>
+      </div>
+    </form>
+
+  </section>
+</section>

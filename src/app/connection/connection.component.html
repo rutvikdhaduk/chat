@@ -1,0 +1,25 @@
+<section class="application-body" (window:resize)="_screenSize.windowSize()">
+    <div class="side-bar">
+        <div class="default-section">
+            <div class="user-profile">
+                <img src="/assets/user.jpg" alt="" class="profile-img">
+                <p class="user-name">Dhruv Bhai Ambani</p>
+
+                <button mat-mini-fab color="primary" class="menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+            </div>
+            <div class="search-section">
+                <img src="/assets/cloudicon.svg" alt="" class="logo">
+                <input type="search" placeholder="&#61442; &nbsp; Search" class="search-bar">
+                <button mat-mini-fab color="primary" class="filter-btn">
+                    <mat-icon>filter_list</mat-icon>
+                </button>
+            </div>
+        </div>
+        <app-group></app-group>
+    </div>
+    <div class="chating-section">
+        <router-outlet></router-outlet>
+    </div>
+</section>

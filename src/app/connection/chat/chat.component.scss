@@ -1,0 +1,242 @@
+@mixin Flex-box($content, $align) {
+    display: flex;
+    justify-content: $content;
+    align-items: $align;
+}
+
+@mixin Custom-mini-btn($bgColor, $iconColor) {
+    background-color: $bgColor;
+    color: $iconColor;
+    width: 31px;
+    height: 31px;
+    box-shadow: none;
+}
+
+/*========== Media Queary ==========*/
+@mixin media-query($screenSize, $properties) {
+    @media screen and (max-width:$screenSize) {
+        @each $propertie, $value in $properties {
+            #{$propertie}: #{$value};
+        }
+
+        transition: all 0.3s ease-in-out;
+    }
+}
+
+.user-profile {
+    @include Flex-box(space-between, center);
+    background-color: #E8F9F7;
+    padding: 0 20px;
+    height: 55px;
+    border-bottom: 1px solid #D9D9D9;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+
+    &>.back-btn {
+        @include Custom-mini-btn(transparent, #7C7C7C);
+        --mat-mdc-button-ripple-color: rgb(89 89 89 / 10%);
+        margin-right: 10px;
+        display: none;
+
+        @include media-query(768px, (display: flex));
+    }
+
+    &>.profile-img {
+        width: 35px;
+        border-radius: 50%;
+        border: 2px solid #40CDBD;
+    }
+
+    &>.user-info-section {
+        margin: 0 auto 0 10px;
+
+        &>.user-name {
+            font-size: 17px;
+            margin: 0 0 2px 0;
+            color: #484848;
+        }
+
+        &>.last-seen {
+            font-size: 13px;
+            margin: 0;
+            color: #757575;
+        }
+    }
+
+    &>.menu,
+    &>.search {
+        @include Custom-mini-btn(transparent, #7C7C7C);
+        --mat-mdc-button-ripple-color: rgb(89 89 89 / 10%);
+    }
+
+    &>.search {
+        margin-right: 10px;
+    }
+}
+
+.chat-section {
+    height: calc(100vh - 56px);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        background-image: url('https://www.shutterstock.com/image-vector/social-media-sketch-vector-seamless-600nw-1660950727.jpg');
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0.2;
+        z-index: -1;
+    }
+
+    .chat-group {
+        height: calc(100vh - 118px);
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 0 40px;
+
+        @include media-query(768px, (padding: 0 20px));
+
+        .chat-box,
+        .send-chat {
+            background-color: #ECECEC;
+            padding: 15px 20px;
+            margin: 10px auto 10px 0;
+            border-radius: 10px;
+            min-width: 100px;
+            max-width: 600px;
+            width: max-content;
+            position: relative;
+            @include media-query(768px, (max-width: 80%, padding: 10px 15px));
+
+            &::before {
+                content: '';
+                position: absolute;
+                background-color: #ECECEC;
+                width: 25px;
+                height: 20px;
+                left: -20px;
+                top: 0;
+                clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
+                border-radius: 10px 0 0 0;
+            }
+
+            &>.img {
+                max-width: 200px;
+                min-width: 100px;
+            }
+
+            .chat-text {
+                @include Flex-box(center, center);
+
+                &>p {
+                    margin: 0;
+                    color: #4B4B4B;
+                    font-size: 15px;
+                    @include media-query(768px, (font-size: 14px));
+                }
+
+                &>.chat-info {
+                    margin: 0 0 -19px 7px;
+                    @include Flex-box(center, center);
+                    color: #909090;
+
+                    &>.send-icon {
+                        margin: 0 5px 0 0;
+                        font-size: 17px;
+                    }
+
+                    &>.time {
+                        font-size: 12px;
+                        text-wrap: nowrap;
+                    }
+                }
+            }
+        }
+
+        .send-chat {
+            margin: 10px 0 10px auto;
+            background-color: #BEEEE9;
+
+            // @include media-query(768px, (width: auto, margin: 10px auto 10px 20px));
+            &::before {
+                display: none;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                background-color: #BEEEE9;
+                width: 25px;
+                height: 20px;
+                right: -20px;
+                top: 0;
+                clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
+                border-radius: 0 10px 0 0;
+            }
+        }
+    }
+
+    .chat-input-section {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding: 10px 0;
+        border-top: 1px solid #D9D9D9;
+        width: 100%;
+        background-color: #FFF;
+        @include Flex-box(center, center);
+
+        .icon-btn {
+            @include Custom-mini-btn(transparent, #7C7C7C);
+            --mat-mdc-button-ripple-color: rgb(89 89 89 / 10%);
+            margin: 0 5px;
+        }
+
+        .chat-input {
+            width: 100%;
+            margin: 0 10px;
+            border: 1px solid #DCDCDC;
+            border-radius: 4px;
+            background: #F8F8F8;
+            padding: 7px;
+            height: 25px;
+            box-shadow: inset 0px 1px 7px 0px rgba(229, 229, 229, 1);
+            transition: all 0.3s ease-in-out;
+            font-size: 16px;
+            font-family: "Inria Sans", sans-serif;
+
+            &::placeholder {
+                color: #c9c9c9;
+                font-size: 16px;
+            }
+
+            &:is(:hover, :focus, :focus-visible) {
+                border: 1px solid #40CDBD;
+                outline: 0;
+            }
+        }
+
+        .send-btn {
+            background-color: #40CDBD;
+            width: 39px;
+            height: 39px;
+            margin-right: 10px;
+            border: 1px solid #37b9aa;
+            border-radius: 5px;
+            color: #FFF;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            @include Flex-box(center, center);
+
+            &>i {
+                font-size: 21px;
+            }
+
+            &:is(:hover, :focus) {
+                background-color: #37b9aa;
+            }
+        }
+    }
+}

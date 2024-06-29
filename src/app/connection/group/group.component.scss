@@ -1,0 +1,133 @@
+@mixin Flex-box($content, $align) {
+    display: flex;
+    justify-content: $content;
+    align-items: $align;
+}
+
+@mixin Custom-mini-btn($bgColor, $iconColor) {
+    background-color: $bgColor;
+    color: $iconColor;
+    width: 31px;
+    height: 31px;
+    box-shadow: none;
+}
+
+/*========== Media Queary ==========*/
+@mixin media-query($screenSize, $properties) {
+    @media screen and (max-width:$screenSize) {
+        @each $propertie, $value in $properties {
+            #{$propertie}: #{$value};
+        }
+
+        transition: all 0.3s ease-in-out;
+    }
+}
+
+.user-cards-section {
+    height: calc(100vh - 55px - 58px);
+    overflow-y: auto;
+
+    /* width */
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.363);
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: #319e9163;
+        border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+        background: #319e91;
+    }
+}
+
+.chat-user-card {
+    @include Flex-box(flex-start, center);
+    background-color: #FDFDFD;
+    padding: 10px 15px;
+    border-bottom: 1px solid #E6E6E6;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+
+    @include media-query(768px, (padding: 10px 30px));
+    @include media-query(480px, (padding: 10px 15px));
+
+    &:last-child {
+        border: 0;
+    }
+
+    &:is(:hover, :focus) {
+        background-color: #F2F2F2;
+    }
+
+    &>.profile-img {
+        width: 35px;
+        border-radius: 50%;
+    }
+
+    &>.user-info {
+        margin-left: 10px;
+
+        &>.name {
+            font-size: 17px;
+            margin: 0 0 5px 0;
+            color: #484848;
+        }
+
+        &>.last-chat {
+            font-size: 13px;
+            margin: 0;
+            color: #757575;
+
+            &>i {
+                margin-right: 3px;
+            }
+        }
+    }
+
+    &>.time-section {
+        margin: 0 0 auto auto;
+        @include Flex-box(center, center);
+
+        &>.status-icon {
+            font-size: 15px;
+            color: #C3C3C3;
+        }
+
+        &>.viewed-status {
+            color: #40CDBD;
+        }
+
+        &>.time {
+            color: #757575;
+            margin: 0 0 0 5px;
+            font-size: 13px;
+        }
+
+    }
+
+    &>.unviewed-chat-count {
+        background-color: #40CDBD;
+        color: #FFF;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        font-size: 12px;
+        position: absolute;
+        right: 15px;
+        bottom: 17px;
+        @include Flex-box(center, center);
+
+        @include media-query(768px, (right: 30px));
+        @include media-query(480px, (right: 15px));
+    }
+}

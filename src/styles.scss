@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "//netdna.bootstrapcdn.com/font-awesome/3.0/css/font-awesome.css";
+@import 'ngx-toastr/toastr';
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
+body {
+    margin: 0;
+}
+
+html,
+body {
+    height: auto;
+    font-family: 'Inria Sans', sans-serif !important;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inria Sans', sans-serif !important;
+}

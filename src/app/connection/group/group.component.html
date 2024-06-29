@@ -1,0 +1,19 @@
+<section class="user-cards-section">
+    <ng-container *ngFor="let item of dummyLoop">
+        <div class="chat-user-card" (click)="GetChatByUser()">
+            <img src="/assets/user.jpg" alt="" class="profile-img">
+            <div class="user-info">
+                <p class="name">Jhon Doe</p>
+                <ng-container>
+                    <p class="last-chat" *ngIf="item == 1">hello jhon</p>
+                    <p class="last-chat" *ngIf="item !== 1"><i class="bi bi-image"></i> Photo</p>
+                </ng-container>
+            </div>
+            <div class="time-section">
+                <i class="bi bi-check2-all status-icon" [ngClass]="{'viewed-status': item == 2 }" *ngIf="item != 0"></i>
+                <p class="time">1:23 PM</p>
+            </div>
+            <span class="unviewed-chat-count" *ngIf="item == 0">1</span>
+        </div>
+    </ng-container>
+</section>
